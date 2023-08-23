@@ -4,10 +4,8 @@ import Pomodoro from './components/Pomodoro.vue'
 import store from './store'
 
 onBeforeMount(() => {
-  console.log('chamou onCreated')
   const json = localStorage.getItem("pomodoro_app")
   const pomodoro_app_local_storage = JSON.parse(json)
-  console.log(pomodoro_app_local_storage)
   if ( pomodoro_app_local_storage == null ){
     localStorage.setItem(
       "pomodoro_app",

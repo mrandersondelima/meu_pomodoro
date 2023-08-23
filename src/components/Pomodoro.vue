@@ -25,18 +25,17 @@ const countdown_ficar_pe = ref(null)
 const countdown_pomodoro_curto = ref(null)
 var dialog = ref(false)
 
-var tempo_pomodoro_original = ref(store.state.tempo_pomodoro * 60 * 1000)
-console.log('store.state.tempo_pomodoro', store.state.tempo_pomodoro)
-var tempo_pomodoro = ref(store.state.tempo_pomodoro * 60 * 1000)
-var tempo_ficar_pe_original = ref(store.state.tempo_ficar_pe * 60 * 1000)
-var tempo_ficar_pe = ref(store.state.tempo_ficar_pe * 60 * 1000)
-var tempo_pomodoro_curto_original = ref(store.state.tempo_pomodoro_curto * 60 * 1000)
-var tempo_pomodoro_curto = ref(store.state.tempo_pomodoro_curto * 60 * 1000)
-var minutos_pomodoro = ref(store.state.tempo_pomodoro)
+var tempo_pomodoro_original = ref(parseInt( store.state.tempo_pomodoro ) * 60 * 1000)
+var tempo_pomodoro = ref( parseInt(store.state.tempo_pomodoro) * 60 * 1000)
+var tempo_ficar_pe_original = ref( parseInt( store.state.tempo_ficar_pe) * 60 * 1000)
+var tempo_ficar_pe = ref( parseInt( store.state.tempo_ficar_pe ) * 60 * 1000)
+var tempo_pomodoro_curto_original = ref( parseInt( store.state.tempo_pomodoro_curto ) * 60 * 1000)
+var tempo_pomodoro_curto = ref( parseInt(store.state.tempo_pomodoro_curto ) * 60 * 1000)
+var minutos_pomodoro = ref( parseInt( store.state.tempo_pomodoro))
 var segundos_pomodoro = ref(0)
-var minutos_pomodoro_curto = ref(store.state.tempo_pomodoro_curto)
+var minutos_pomodoro_curto = ref( parseInt( store.state.tempo_pomodoro_curto ))
 var segundos_pomodoro_curto = ref(0)
-var minutos_ficar_pe = ref(store.state.tempo_ficar_pe)
+var minutos_ficar_pe = ref( parseInt( store.state.tempo_ficar_pe ))
 var segundos_ficar_pe = ref(0)
 var is_pomodoro_running = ref(false)
 var is_ficar_pe_running = ref(false)
@@ -105,12 +104,13 @@ function run(){
         if ( is_ficar_pe_running.value ){
             countdown_ficar_pe.value.abort()
         } else {
-            tempo_ficar_pe.value = tempo_ficar_pe_original.value - ( ( ( store.state.tempo_ficar_pe -minutos_ficar_pe.value ) * 60  ) * 1000 ) + ( segundos_ficar_pe.value ) * 1000             
+            tempo_ficar_pe.value = tempo_ficar_pe_original.value - ( ( ( store.state.tempo_ficar_pe - minutos_ficar_pe.value ) * 60  ) * 1000 ) + ( segundos_ficar_pe.value ) * 1000             
             if ( tempo_ficar_pe.value != store.state.tempo_ficar_pe * 60 * 1000 ){            
                 countdown_ficar_pe.value.start()
             } else {
                 countdown_ficar_pe.value.restart()
             }
+            
         }
 
         is_ficar_pe_running.value = !is_ficar_pe_running.value
@@ -133,16 +133,22 @@ function run(){
 function pular_pomodoro(){
     if ( tab.value == 'one' ) {
         tempo_pomodoro.value = tempo_pomodoro_original.value
+        minutos_pomodoro.value = store.state.tempo_pomodoro
+        segundos_pomodoro.value = 0
         countdown.value.restart()
         countdown.value.abort()
         is_pomodoro_running.value = false
     } else if ( tab.value == 'two' ) {
-        tempo_ficar_pe.value = tempo_ficar_pe_original.value
+        tempo_ficar_pe.value = tempo_ficar_pe_original.value 
+        minutos_ficar_pe.value = store.state.tempo_ficar_pe
+        segundos_ficar_pe.value = 0
         countdown_ficar_pe.value.restart()
         countdown_ficar_pe.value.abort()
         is_ficar_pe_running.value = false
     } else {
         tempo_pomodoro_curto.value = tempo_pomodoro_curto_original.value
+        minutos_pomodoro_curto.value = store.state.tempo_pomodoro_curto
+        segundos_pomodoro_curto.value = 0
         countdown_pomodoro_curto.value.restart()
         countdown_pomodoro_curto.value.abort()
         is_pomodoro_curto_running.value = false
@@ -152,6 +158,7 @@ function pular_pomodoro(){
 function toca_musica_pomodoro(){
     fim_pomodoro.value.play()
     tempo_pomodoro.value = tempo_pomodoro_original.value
+    minutos_pomodoro.value = tempo_pomodoro_original.value
     countdown.value.restart()
     countdown.value.abort()
     is_pomodoro_running.value = false
@@ -161,6 +168,7 @@ function toca_musica_pomodoro(){
 function toca_musica_ficar_pe(){
     fim_ficar_pe.value.play()
     tempo_ficar_pe.value = tempo_ficar_pe_original.value
+    minutos_ficar_pe.value = parseInt( store.state.tempo_ficar_pe )
     countdown_ficar_pe.value.restart()
     countdown_ficar_pe.value.abort()
     is_ficar_pe_running.value = false
@@ -170,6 +178,7 @@ function toca_musica_ficar_pe(){
 function toca_musica_pomodoro_curto(){
     fim_pomodoro_curto.value.play()
     tempo_pomodoro_curto.value = tempo_pomodoro_curto_original.value
+    minutos_pomodoro_curto.value = tempo_pomodoro_curto_original.value
     countdown_pomodoro_curto.value.restart()
     countdown_pomodoro_curto.value.abort()
     is_pomodoro_curto_running.value = false
