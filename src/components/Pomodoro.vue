@@ -258,8 +258,8 @@ const cor_texto_botao = computed(() => {
         </v-container>
         <v-divider class="pb-4" style="color: black;"></v-divider>
 
-        <v-container align="center" :class="cor_de_fundo_escura" class="rounded-lg mt-4" style="color: white; width: 86%;">
-            <v-card class="p-4" :class="cor_de_fundo_escura" width="90%" style="color: white; box-shadow: none;">
+        <v-container fluid align="center" :class="cor_de_fundo_escura" class="rounded-lg mt-4 w-100 w-sm-75" style="color: white; width: 86%;">
+            <v-card class="p-4 w-100" :class="cor_de_fundo_escura" style="color: white; box-shadow: none;">
                 <v-tabs align-tabs="center"
                     v-model="tab" :hide-slider="true"
                     selected-class="tab-selecionada" class="minhas-tabs"
@@ -268,54 +268,54 @@ const cor_texto_botao = computed(() => {
                     <v-tab value="two" :ripple="false" style="height: 30px;" class="text-none">Ficar em pé</v-tab>
                     <v-tab value="three" :ripple="false" style="height: 30px;" class="text-none">Pomodoro curto</v-tab>                
                 </v-tabs>
-            <v-card-text class="meu-card">
+            <v-card-text class="meu-card pa-0 pt-4">
                 <v-window v-model="tab">
-                    <v-window-item value="one" class="text-h1">
+                    <v-window-item value="one" class="text-h2 text-sm-h1">
                         <vue-countdown class="fonte-redonda" @end="toca_musica_pomodoro" :transform="transformSlotProps" @progress="progress_pomodoro" ref="countdown" :auto-start="false" :time="tempo_pomodoro" v-slot="{ hours, minutes, seconds }">
                             {{ minutes }} : {{ seconds }}
                         </vue-countdown>
-                        <v-container>
-                    <v-row>
+                        <v-container fluid>
+                    <v-row align="center" class="d-flex justify-space-between flex-nowrap">           
                         <v-col></v-col>
-                        <v-col>
+                        <v-col style="flex-grow: initial !important; padding-top: 0px !important" align="center">
                             <v-btn @click="run" :elevation="is_pomodoro_running ? 0 : 10" :ripple="false" size="x-large" :class="cor_texto_botao" class="font-weight-bold botao-inicio">{{ is_pomodoro_running ? 'PAUSAR' : 'INICIAR' }}</v-btn>
                         </v-col>
-                        <v-col>
-                            <v-btn @click="pular_pomodoro" v-show="is_pomodoro_running" variant="text" size="x-large" class="text-h5" icon="mdi-skip-next"></v-btn>
+                        <v-col class="d-flex justify-start">
+                            <v-btn @click="pular_pomodoro" align-self="start" density="compact" v-show="is_pomodoro_running" variant="text" size="x-large" class="text-h5" icon="mdi-skip-next"></v-btn>
                         </v-col>
                     </v-row>
                 </v-container>
                     </v-window-item>
 
-                    <v-window-item value="two" class="text-h1">
+                    <v-window-item value="two" class="text-h2 text-sm-h1">
                         <vue-countdown class="fonte-redonda" @end="toca_musica_ficar_pe" :transform="transformSlotProps" @progress="progress_ficar_pe" ref="countdown_ficar_pe" :auto-start="false" :time="tempo_ficar_pe" v-slot="{ hours, minutes, seconds }">
                             {{ minutes }} : {{ seconds }}
                         </vue-countdown>   
-                        <v-container>
-                    <v-row>
+                        <v-container fluid>
+                    <v-row align="center" class="d-flex justify-space-between flex-nowrap">
                         <v-col></v-col>
-                        <v-col>
+                        <v-col style="flex-grow: initial !important; padding-top: 0px !important">
                             <v-btn @click="run" :elevation="is_ficar_pe_running ? 0 : 10" :ripple="false" size="x-large" :class="cor_texto_botao" class="font-weight-bold botao-inicio">{{ is_ficar_pe_running ? 'PAUSAR' : 'INICIAR' }}</v-btn>
                         </v-col>
-                        <v-col>
-                            <v-btn  @click="pular_pomodoro" v-show="is_ficar_pe_running" variant="text" size="x-large" class="text-h5" icon="mdi-skip-next"></v-btn>
+                        <v-col class="d-flex justify-start">
+                            <v-btn  @click="pular_pomodoro" v-show="is_ficar_pe_running" density="compact" variant="text" size="x-large" class="text-h5" icon="mdi-skip-next"></v-btn>
                         </v-col>
                     </v-row>
                 </v-container>     
                     </v-window-item>
 
-                    <v-window-item value="three" class="text-h1">
+                    <v-window-item value="three" class="text-h2 text-sm-h1">
                         <vue-countdown class="fonte-redonda" @end="toca_musica_pomodoro_curto" :transform="transformSlotProps" @progress="progress_pomodoro_curto" ref="countdown_pomodoro_curto" :auto-start="false" :time="tempo_pomodoro_curto" v-slot="{ hours, minutes, seconds }">
                             {{ minutes }} : {{ seconds }}
                         </vue-countdown>
-                        <v-container>
-                    <v-row>
+                        <v-container fluid>
+                    <v-row align="center" class="d-flex justify-space-between flex-nowrap">
                         <v-col></v-col>
-                        <v-col>
+                        <v-col style="flex-grow: initial !important; padding-top: 0px !important" align="center">
                             <v-btn @click="run" :elevation="is_pomodoro_curto_running ? 0 : 10" :ripple="false" size="x-large" :class="cor_texto_botao" class="font-weight-bold botao-inicio">{{ is_pomodoro_curto_running ? 'PAUSAR' : 'INICIAR' }}</v-btn>
                         </v-col>
-                        <v-col>
-                            <v-btn  @click="pular_pomodoro" v-show="is_pomodoro_curto_running" variant="text" size="x-large" class="text-h5" icon="mdi-skip-next"></v-btn>
+                        <v-col class="d-flex justify-start">
+                            <v-btn  @click="pular_pomodoro" v-show="is_pomodoro_curto_running" density="compact" variant="text" size="x-large" class="text-h5" icon="mdi-skip-next"></v-btn>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -337,6 +337,12 @@ const cor_texto_botao = computed(() => {
 
 
 <style lang="css" scoped>
+.pular-pomodoro {
+    position: absolute;
+    right: 0px;
+    width: auto;
+    padding: 0;
+}
 
 .fonte-redonda {
     font-family: 'Varela Round', sans-serif !important;
